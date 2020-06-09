@@ -1,7 +1,7 @@
 import Entity from './entity'
 
-const NORTHERN_HEMISPHERE = 'NORTH'
-const SOUTHERN_HEMISPHERE = 'SOUTH'
+const NORTHERN_HEMISPHERE = 'North'
+const SOUTHERN_HEMISPHERE = 'South'
 
 class Critter extends Entity {
     constructor(name, price, location, schedule, northernHemisphere, southernHemisphere) {
