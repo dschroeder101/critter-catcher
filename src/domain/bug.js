@@ -1,0 +1,7 @@
+import Critter from './critter'
+
+class Bug extends Critter {
+    constructor() {
+        super()
+    }
+}
