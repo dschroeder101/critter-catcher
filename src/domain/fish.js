@@ -7,3 +7,5 @@ class Fish extends Critter {
     this.isFin = isFin;
   }
 }
+
+export default Fish;

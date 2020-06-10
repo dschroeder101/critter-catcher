@@ -1,9 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
-const Bug = require("../database/models/mongoose/bug");
-const Fish = require("../databse/models/mongoose/fish");
+const Bug = require("./../database/models/mongoose/bug");
+const Fish = require("./../database/models/mongoose/fish");
 
 require("dotenv").config();
 

@@ -5,3 +5,5 @@ class Bug extends Critter {
     super();
   }
 }
+
+export default Bug;

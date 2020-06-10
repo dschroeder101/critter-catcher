@@ -24,3 +24,5 @@ class Entity {
     return this.id;
   }
 }
+
+export default Entity;

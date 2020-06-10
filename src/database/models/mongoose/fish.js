@@ -34,13 +34,13 @@ const FishSchema = mongoose.Schema({
     required: true,
   },
   schedule: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Schedule",
     required: true,
   },
   hemispheres: [
     {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Hemisphere",
       required: true,
     },
