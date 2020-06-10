@@ -7,7 +7,7 @@ class ManageDB {
   }
 
   async connect() {
-    const connection = process.env.MONGO_URI;
+    const connection = `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@critter-catcher1-is7lo.azure.mongodb.net/critter-catcher1?retryWrites=true&w=majority`;
 
     this.logger.debug("Connecting to database...");
 

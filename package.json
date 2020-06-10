@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.5.8",
@@ -21,7 +22,9 @@
     "eject": "react-scripts eject",
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
     "dev:start": "nodemon ./server-build/index.js",
-    "dev": "npm-run-all --parallel build dev:*"
+    "client": "yarn start",
+    "server": "cd ./src/server && nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,5 +51,6 @@
     "prettier": "^2.0.5",
     "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^1.7.2"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

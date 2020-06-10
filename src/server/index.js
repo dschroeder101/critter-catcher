@@ -7,12 +7,12 @@ import ReactDOMServer from "react-dom/server";
 
 import App from "../src/App";
 
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.static("./build"));
 
-app.get("/*", (req, res) => {
+app.get('/', (req, res) => {
   const app = ReactDOMServer.renderToString(<App />);
 
   const indexFile = path.resolve("./build/index.html");

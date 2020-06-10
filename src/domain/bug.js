@@ -1,7 +1,7 @@
-import Critter from './critter'
+import Critter from "./critter";
 
 class Bug extends Critter {
-    constructor() {
-        super()
-    }
+  constructor() {
+    super();
+  }
 }

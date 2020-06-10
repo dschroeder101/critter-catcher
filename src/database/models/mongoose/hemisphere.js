@@ -1,18 +1,16 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-import HemisphereClass from '../../../domain/hemisphere'
+import HemisphereClass from "../../../domain/hemisphere";
 
-const HemisphereSchema = mongoose.Schema(
-    {
-        direction: {
-            type: String,
-            required: true,
-            enum: ["North", "South"]
-        },
-        months: [String]
-    }
-)
+const HemisphereSchema = mongoose.Schema({
+  direction: {
+    type: String,
+    required: true,
+    enum: ["North", "South"],
+  },
+  months: [String],
+});
 
-HemisphereSchema.loadClass(HemisphereClass)
+HemisphereSchema.loadClass(HemisphereClass);
 
-export default mongoose.model('Hemisphere', HemisphereSchema)
+export default mongoose.model("Hemisphere", HemisphereSchema);
