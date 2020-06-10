@@ -1,37 +1,37 @@
-import mongoose from 'mongoose'
-require('dotenv').config();
+import mongoose from "mongoose";
+require("dotenv").config();
 
 class ManageDB {
-    cosntructor({ logger }) {
-        this.logger = logger
-    }
+  cosntructor({ logger }) {
+    this.logger = logger;
+  }
 
-    async connect () {
-        const connection = process.env.MONGO_URI
-        
-        this.logger.debug('Connecting to database...')
+  async connect() {
+    const connection = process.env.MONGO_URI;
 
-        mongoose.set('useCreateIndex', true)
-        mongoose.set('useFindAndModify', false)
+    this.logger.debug("Connecting to database...");
 
-        await mongoose
-            .connect(connection, { useNewUrlParser: true })
-            .catch(error => {
-                this.logger.error('Error while connecting to the databse', error)
-                process.exit(1)
-            })
+    mongoose.set("useCreateIndex", true);
+    mongoose.set("useFindAndModify", false);
 
-        this.logger.debug('Connected to the database')
-    }
+    await mongoose
+      .connect(connection, { useNewUrlParser: true })
+      .catch((error) => {
+        this.logger.error("Error while connecting to the databse", error);
+        process.exit(1);
+      });
 
-    async close () {
-        this.logger.debug('Closing database...')
+    this.logger.debug("Connected to the database");
+  }
 
-        await mongoose.connection.close().catch(error => {
-            this.logger.error('Error while closing the databse', error)
-            process.exit(1)
-        })
+  async close() {
+    this.logger.debug("Closing database...");
 
-        this.logger.debug('Database closed')
-    }
+    await mongoose.connection.close().catch((error) => {
+      this.logger.error("Error while closing the databse", error);
+      process.exit(1);
+    });
+
+    this.logger.debug("Database closed");
+  }
 }

@@ -9,11 +9,7 @@ const HemisphereSchema = mongoose.Schema(
             required: true,
             enum: ["North", "South"]
         },
-        months: [{
-            type: Schema.Types.ObjectId,
-            ref: "Month",
-            required: true
-        }]
+        months: [String]
     }
 )
 

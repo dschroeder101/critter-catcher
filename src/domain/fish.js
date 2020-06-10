@@ -1,9 +1,9 @@
-import Critter from './critter'
+import Critter from "./critter";
 
 class Fish extends Critter {
-    constructor(shadowSize, isFin) {
-        super()
-        this.shadowSize = shadowSize
-        this.isFin =  isFin
-    }
+  constructor(shadowSize, isFin) {
+    super();
+    this.shadowSize = shadowSize;
+    this.isFin = isFin;
+  }
 }
