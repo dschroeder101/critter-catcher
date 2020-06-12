@@ -1,35 +1,48 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-import BugClass from '../../../domain/bug'
+import BugClass from "../../../domain/bug";
 
-const BugSchema = mongoose.Schema(
-    {
-        name: {
-            type: String,
-            unique: true,
-            required: true
-        },
-        price: {
-            type: Number,
-            required: true
-        },
-        location: {
-            type: String,
-            required: true
-        },
-        schedule: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Schedule',
-            required:true
-        },
-        hemispheres: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Hemisphere',
-            required:true
-        }]
-    }
-)
+let hemisphereSchema = mongoose.Schema({
+  direction: {
+    type: String,
+    required: true,
+    enum: ["North", "South"],
+  },
+  months: [String],
+});
 
-BugSchema.loadClass(BugClass)
+let scheduleSchema = mongoose.Schema({
+  startingTime: {
+    type: Number,
+  },
+  endingTime: {
+    type: Number,
+  },
+  allDay: {
+    type: Boolean,
+    required: false,
+  },
+});
 
-export default mongoose.model('Bug', BugSchema)
+let bugSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  schedule: scheduleSchema,
+  hemispheres: [hemisphereSchema],
+});
+
+bugSchema.loadClass(BugClass);
+let Bug = mongoose.model("Bug", bugSchema);
+module.exports = Bug;
+//export default mongoose.model('Bug', bugSchema)

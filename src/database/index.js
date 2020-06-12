@@ -28,7 +28,7 @@ class ManageDB {
     this.logger.debug("Closing database...");
 
     await mongoose.connection.close().catch((error) => {
-      this.logger.error("Error while closing the databse", error);
+      this.logger.error("Error while closing the database", error);
       process.exit(1);
     });
 

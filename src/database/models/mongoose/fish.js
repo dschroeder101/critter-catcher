@@ -2,6 +2,28 @@ import mongoose from "mongoose";
 
 import FishClass from "../../../domain/fish";
 
+let hemisphereSchema = mongoose.Schema({
+  direction: {
+    type: String,
+    required: true,
+    enum: ["North", "South"],
+  },
+  months: [String],
+});
+
+let scheduleSchema = mongoose.Schema({
+  startingTime: {
+    type: Number,
+  },
+  endingTime: {
+    type: Number,
+  },
+  allDay: {
+    type: Boolean,
+    required: false,
+  },
+});
+
 const FishSchema = mongoose.Schema({
   name: {
     type: String,
@@ -33,17 +55,9 @@ const FishSchema = mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  schedule: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Schedule",
-    required: true,
-  },
+  schedule: scheduleSchema,
   hemispheres: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Hemisphere",
-      required: true,
-    },
+    hemisphereSchema
   ],
 });
 
