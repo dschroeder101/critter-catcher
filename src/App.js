@@ -3,14 +3,37 @@ import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    hemisphere: "",
-    currentTime: "",
+  constructor(props) {
+    super(props);
+    this.state = {
+      fish: [],
+      bugs: [],
+    };
+  }
+
+  getFish = async () => {
+    const response = await fetch("/critters/fish");
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log(body);
+    return body;
+  };
+
+  getBugs = async () => {
+    const response = await fetch("/critters/bugs");
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log(body);
+    return body;
   };
 
   componentDidMount() {
-    this.callApi()
-      .then((res) => this.setState({ hemisphere: res.express }))
+    this.getFish()
+      .then((res) => this.setState({ fish: res }))
+      .catch((err) => console.log(err));
+
+    this.getBugs()
+      .then((res) => this.setState({ bugs: res }))
       .catch((err) => console.log(err));
   }
 
@@ -22,6 +45,14 @@ class App extends Component {
   };
 
   render() {
+    const fish = this.state.fish.map((fish) => {
+      return <div>{fish.name}</div>;
+    });
+
+    const bugs = this.state.bugs.map((bug) => {
+      return <div>{bug.name}</div>;
+    });
+
     return (
       <div className="App">
         <header className="App-header">
@@ -38,7 +69,8 @@ class App extends Component {
             Learn React
           </a>
           <button onClick={this.callApi}>Fetch</button>
-          <div>{this.state.hemisphere}</div>
+          {fish}
+          {bugs}
         </header>
       </div>
     );
