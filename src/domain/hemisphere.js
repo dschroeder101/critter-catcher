@@ -7,3 +7,5 @@ class Hemisphere extends Entity {
     this.months = months;
   }
 }
+
+export default Hemisphere;

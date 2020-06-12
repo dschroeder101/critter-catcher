@@ -1,28 +1,8 @@
 import mongoose from "mongoose";
 
 import FishClass from "../../../domain/fish";
-
-let hemisphereSchema = mongoose.Schema({
-  direction: {
-    type: String,
-    required: true,
-    enum: ["North", "South"],
-  },
-  months: [String],
-});
-
-let scheduleSchema = mongoose.Schema({
-  startingTime: {
-    type: Number,
-  },
-  endingTime: {
-    type: Number,
-  },
-  allDay: {
-    type: Boolean,
-    required: false,
-  },
-});
+import HemisphereSchema from "./hemisphere"
+import ScheduleSchema from "./schedule";
 
 const FishSchema = mongoose.Schema({
   name: {
@@ -55,12 +35,12 @@ const FishSchema = mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  schedule: scheduleSchema,
+  schedule: ScheduleSchema,
   hemispheres: [
-    hemisphereSchema
+    HemisphereSchema
   ],
 });
 
 FishSchema.loadClass(FishClass);
-
-export default mongoose.model("Fish", FishSchema);
+let Fish = mongoose.model("Fish", FishSchema);
+module.exports = Fish;

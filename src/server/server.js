@@ -5,7 +5,7 @@ const Bug = require("./../database/models/mongoose/bug");
 const Fish = require("./../database/models/mongoose/fish");
 const cors = require("cors");
 
-console.log(require("dotenv").config());
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -23,15 +23,94 @@ mongoose
       useUnifiedTopology: true,
     }
   )
-  .then(() => console.log("Database Connected"))
   .catch((error) => {
     console.log("Error while connecting to the database - " + error);
   });
+
+mongoose.connection.on("connected", () => {
+  console.log("Connection opened");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.log("Mongoose connection encountered an error: " + err);
+});
+
+mongoose.connection.on("disconnected", function () {
+  console.log("Mongoose connection has disconnected");
+});
+
+process.on("SIGINT", function () {
+  mongoose.connection.close(() => {
+    console.log(
+      "Mongoose connection has disconnected due to application termination"
+    );
+    process.exit(0);
+  });
+});
 
 app.get("/critters/:hemisphere/:currentTime", (req, res) => {
   res.json({
     hemisphere: req.params.hemisphere,
     currentTime: req.params.currentTime,
+  });
+});
+
+app.post("/critters/fish/create", (req, res) => {
+  let bitterling = new Fish({
+    name: "Bitterling",
+    price: "900",
+    location: "River",
+    shadowSize: "Small",
+    isFin: false,
+    schedule: {
+      startingTime: null,
+      endingTime: null,
+      allDay: true,
+    },
+    hemispheres: [
+      {
+        direction: "North",
+        months: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "September",
+          "October",
+          "November",
+          "December",
+        ],
+      },
+      {
+        direction: "South",
+        months: [
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ],
+      },
+    ],
+  });
+
+  var promise = bitterling.save();
+  
+  promise
+  .then(function (doc) {
+    console.log(doc.name);
+    res.status(201).end();
+  })
+  .catch(function (err) {
+    console.log(err);
+    res.status(500).end();
   });
 });
 
@@ -81,14 +160,15 @@ app.post("/critters/bugs/create", (req, res) => {
 
   var promise = commonButterFly.save();
 
-  promise.then(function (doc) {
-    console.log(doc.name);
-    res.status(201).end();
-  })
-  .catch(function(err) {
-    console.log(err);
-    res.status(500).end();
-  });
+  promise
+    .then(function (doc) {
+      console.log(doc.name);
+      res.status(201).end();
+    })
+    .catch(function (err) {
+      console.log(err);
+      res.status(500).end();
+    });
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

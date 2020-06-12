@@ -8,3 +8,4 @@ class Schedule extends Entity {
     this.allDay = allDay;
   }
 }
+export default Schedule;

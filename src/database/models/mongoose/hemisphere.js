@@ -13,4 +13,4 @@ const HemisphereSchema = mongoose.Schema({
 
 HemisphereSchema.loadClass(HemisphereClass);
 
-export default mongoose.model("Hemisphere", HemisphereSchema);
+export default HemisphereSchema;

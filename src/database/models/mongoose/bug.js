@@ -1,28 +1,8 @@
 import mongoose from "mongoose";
 
 import BugClass from "../../../domain/bug";
-
-let hemisphereSchema = mongoose.Schema({
-  direction: {
-    type: String,
-    required: true,
-    enum: ["North", "South"],
-  },
-  months: [String],
-});
-
-let scheduleSchema = mongoose.Schema({
-  startingTime: {
-    type: Number,
-  },
-  endingTime: {
-    type: Number,
-  },
-  allDay: {
-    type: Boolean,
-    required: false,
-  },
-});
+import HemisphereSchema from "./hemisphere"
+import ScheduleSchema from "./schedule";
 
 let bugSchema = new mongoose.Schema({
   name: {
@@ -38,11 +18,10 @@ let bugSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  schedule: scheduleSchema,
-  hemispheres: [hemisphereSchema],
+  schedule: ScheduleSchema,
+  hemispheres: [HemisphereSchema],
 });
 
 bugSchema.loadClass(BugClass);
 let Bug = mongoose.model("Bug", bugSchema);
 module.exports = Bug;
-//export default mongoose.model('Bug', bugSchema)

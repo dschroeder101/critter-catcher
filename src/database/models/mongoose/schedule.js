@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import ScheduleClass from "../../../domain/schedule";
 
 const ScheduleSchema = mongoose.Schema(
     {
@@ -17,4 +18,4 @@ const ScheduleSchema = mongoose.Schema(
 
 ScheduleSchema.loadClass(ScheduleClass)
 
-export default mongoose.model('Schedule', ScheduleSchema)
+export default ScheduleSchema;
