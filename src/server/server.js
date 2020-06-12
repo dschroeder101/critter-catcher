@@ -48,11 +48,37 @@ process.on("SIGINT", function () {
   });
 });
 
-app.get("/critters/:hemisphere/:currentTime", (req, res) => {
+app.get("/critters/", (req, res) => {
   res.json({
     hemisphere: req.params.hemisphere,
     currentTime: req.params.currentTime,
   });
+});
+
+app.get("/critters/fish", (req, res) => {
+  var query = Fish.find({});
+
+  query
+    .exec()
+    .then((doc) => {
+      res.status(200).json(doc);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+});
+
+app.get("/critters/bugs", (req, res) => {
+  var query = Bug.find({});
+
+  query
+    .exec()
+    .then((doc) => {
+      res.status(200).json(doc);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
 });
 
 app.post("/critters/fish/create", (req, res) => {
@@ -102,16 +128,16 @@ app.post("/critters/fish/create", (req, res) => {
   });
 
   var promise = bitterling.save();
-  
+
   promise
-  .then(function (doc) {
-    console.log(doc.name);
-    res.status(201).end();
-  })
-  .catch(function (err) {
-    console.log(err);
-    res.status(500).end();
-  });
+    .then(function (doc) {
+      console.log(doc.name);
+      res.status(201).end();
+    })
+    .catch(function (err) {
+      console.log(err);
+      res.status(500).end();
+    });
 });
 
 app.post("/critters/bugs/create", (req, res) => {
