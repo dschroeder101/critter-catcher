@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import Header from "./components/Header";
+import Content from "./components/Content";
+import Footer from "./components/Footer";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   constructor(props) {
@@ -8,6 +11,13 @@ class App extends Component {
     this.state = {
       fish: [],
       bugs: [],
+      selectedHemisphere: "Northern",
+    };
+
+    this.changeHemisphere = (newHemisphere) => {
+      this.setState({
+        selectedHemisphere: newHemisphere,
+      });
     };
   }
 
@@ -15,7 +25,6 @@ class App extends Component {
     const response = await fetch("/critters/fish");
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
-    console.log(body);
     return body;
   };
 
@@ -23,7 +32,6 @@ class App extends Component {
     const response = await fetch("/critters/bugs");
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
-    console.log(body);
     return body;
   };
 
@@ -37,13 +45,6 @@ class App extends Component {
       .catch((err) => console.log(err));
   }
 
-  callApi = async () => {
-    const response = await fetch("/critters/north/currentTime");
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  };
-
   render() {
     const fish = this.state.fish.map((fish) => {
       return <div>{fish.name}</div>;
@@ -53,25 +54,21 @@ class App extends Component {
       return <div>{bug.name}</div>;
     });
 
+    const hemispheres = ["Northern", "Southern"];
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <button onClick={this.callApi}>Fetch</button>
-          {fish}
-          {bugs}
-        </header>
+        <Header />
+        <div className="App-content">
+          <Content
+            hemispheres={hemispheres}
+            selectedHemisphere={this.state.selectedHemisphere}
+            changeHemisphere={this.changeHemisphere}
+            bugs={this.state.bugs}
+            fish={this.state.fish}
+          />
+        </div>
+        <Footer />
       </div>
     );
   }
