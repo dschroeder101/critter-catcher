@@ -11,50 +11,68 @@ class App extends Component {
     this.state = {
       fish: [],
       bugs: [],
-      selectedHemisphere: "Northern",
+      selectedHemisphere: "North",
+      currentTime: new Date(),
     };
 
     this.changeHemisphere = (newHemisphere) => {
-      this.setState({
-        selectedHemisphere: newHemisphere,
-      });
+      this.setState(
+        {
+          selectedHemisphere: newHemisphere,
+        },
+        () => {
+          this.updateCritters();
+        }
+      );
     };
   }
 
-  getFish = async () => {
-    const response = await fetch("/critters/fish");
+  getCurrentFish = async () => {
+    const month = this.state.currentTime.toLocaleString("default", {
+      month: "long",
+    });
+    const hour = this.state.currentTime.getHours();
+    const response = await fetch(
+      `/critters/fish/${this.state.selectedHemisphere}/${month}/${hour}`
+    );
     const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
     return body;
   };
 
-  getBugs = async () => {
-    const response = await fetch("/critters/bugs");
+  getCurrentBugs = async () => {
+    const month = this.state.currentTime.toLocaleString("default", {
+      month: "long",
+    });
+    const hour = this.state.currentTime.getHours();
+    const response = await fetch(
+      `/critters/bugs/${this.state.selectedHemisphere}/${month}/${hour}`
+    );
     const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
     return body;
   };
 
-  componentDidMount() {
-    this.getFish()
+  updateCritters = () => {
+    this.getCurrentFish()
       .then((res) => this.setState({ fish: res }))
       .catch((err) => console.log(err));
 
-    this.getBugs()
+    this.getCurrentBugs()
+      .then((res) => this.setState({ bugs: res }))
+      .catch((err) => console.log(err));
+  };
+
+  componentDidMount() {
+    this.getCurrentFish()
+      .then((res) => this.setState({ fish: res }))
+      .catch((err) => console.log(err));
+
+    this.getCurrentBugs()
       .then((res) => this.setState({ bugs: res }))
       .catch((err) => console.log(err));
   }
 
   render() {
-    const fish = this.state.fish.map((fish) => {
-      return <div>{fish.name}</div>;
-    });
-
-    const bugs = this.state.bugs.map((bug) => {
-      return <div>{bug.name}</div>;
-    });
-
-    const hemispheres = ["Northern", "Southern"];
+    const hemispheres = ["North", "South"];
 
     return (
       <div className="App">

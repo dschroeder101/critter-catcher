@@ -18,7 +18,7 @@ class HemisphereSelector extends Component {
             this.props.selectedHemisphere === hemisphere ? "active" : ""
           }
         >
-          {hemisphere} Hemisphere
+          {hemisphere}ern Hemisphere
         </ListGroup.Item>
       );
     });

@@ -81,6 +81,88 @@ app.get("/critters/bugs", (req, res) => {
     });
 });
 
+app.get("/critters/fish/:hemisphere/:month/:hour/", (req, res) => {
+  const hemisphere = req.params.hemisphere;
+  const month = req.params.month;
+  const hour = req.params.hour;
+
+  let query = Fish.find({
+    $or: [
+      {
+        $and: [
+          {
+            hemispheres: {
+              $elemMatch: { direction: hemisphere, months: month },
+            },
+          },
+          { "schedule.startingTime": { $lte: hour } },
+          { "schedule.endingTime": { $gte: hour } },
+        ],
+      },
+      {
+        $and: [
+          {
+            hemispheres: {
+              $elemMatch: { direction: hemisphere, months: month },
+            },
+          },
+          { "schedule.allDay": true },
+        ],
+      },
+    ],
+  });
+
+  query
+    .exec()
+    .then((doc) => {
+      res.status(200).json(doc);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+});
+
+app.get("/critters/bugs/:hemisphere/:month/:hour/", (req, res) => {
+  const hemisphere = req.params.hemisphere;
+  const month = req.params.month;
+  const hour = req.params.hour;
+
+  let query = Bug.find({
+    $or: [
+      {
+        $and: [
+          {
+            hemispheres: {
+              $elemMatch: { direction: hemisphere, months: month },
+            },
+          },
+          { "schedule.startingTime": { $lte: hour } },
+          { "schedule.endingTime": { $gte: hour } },
+        ],
+      },
+      {
+        $and: [
+          {
+            hemispheres: {
+              $elemMatch: { direction: hemisphere, months: month },
+            },
+          },
+          { "schedule.allDay": true },
+        ],
+      },
+    ],
+  });
+
+  query
+    .exec()
+    .then((doc) => {
+      res.status(200).json(doc);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+});
+
 app.post("/critters/fish/create", (req, res) => {
   let bitterling = new Fish({
     name: "Bitterling",
