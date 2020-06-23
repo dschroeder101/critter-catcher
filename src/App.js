@@ -13,6 +13,8 @@ class App extends Component {
       bugs: [],
       selectedHemisphere: "North",
       currentTime: new Date(),
+      optimalFishingLocation: "",
+      optimalFishingPrice: 0,
     };
 
     this.changeHemisphere = (newHemisphere) => {
@@ -53,22 +55,62 @@ class App extends Component {
 
   updateCritters = () => {
     this.getCurrentFish()
-      .then((res) => this.setState({ fish: res }))
+      .then((res) => this.handleFishUpdate(res))
       .catch((err) => console.log(err));
 
     this.getCurrentBugs()
-      .then((res) => this.setState({ bugs: res }))
+      .then((res) => this.handleBugUpdate(res))
       .catch((err) => console.log(err));
   };
 
-  componentDidMount() {
-    this.getCurrentFish()
-      .then((res) => this.setState({ fish: res }))
-      .catch((err) => console.log(err));
+  handleFishUpdate(fish) {
+    this.setState({ fish: fish }, () => {
+      this.calculateBestFishingLocation();
+    });
+  }
 
-    this.getCurrentBugs()
-      .then((res) => this.setState({ bugs: res }))
-      .catch((err) => console.log(err));
+  handleBugUpdate(bugs) {
+    this.setState({ bugs: bugs });
+  }
+
+  calculateBestFishingLocation() {
+    let locationMap = new Map();
+
+    this.state.fish.map((fish) => {
+      if (locationMap.has(fish.location)) {
+        let existingLocation = locationMap.get(fish.location);
+        existingLocation.totalValue += existingLocation.totalValue + fish.price;
+        existingLocation.numberOfFish++;
+        locationMap.set(fish.location, existingLocation);
+      } else {
+        locationMap.set(fish.location, {
+          totalValue: fish.price,
+          numberOfFish: 1,
+        });
+      }
+    });
+
+    let maxAveragePrice = 0;
+    let maxLocation = "";
+
+    for (let [key, value] of locationMap.entries()) {
+      if (value.totalValue / value.numberOfFish > maxAveragePrice) {
+        maxAveragePrice = value.totalValue / value.numberOfFish;
+        maxLocation = key;
+      }
+    }
+
+    console.log(maxAveragePrice);
+    console.log(maxLocation);
+
+    this.setState({
+      optimalFishingLocation: maxLocation,
+      optimalFishingPrice: maxAveragePrice,
+    });
+  }
+
+  componentDidMount() {
+    this.updateCritters();
   }
 
   render() {
@@ -82,6 +124,8 @@ class App extends Component {
             hemispheres={hemispheres}
             selectedHemisphere={this.state.selectedHemisphere}
             changeHemisphere={this.changeHemisphere}
+            optimalFishingLocation={this.state.optimalFishingLocation}
+            optimalFishingPrice={this.state.optimalFishingPrice}
             bugs={this.state.bugs}
             fish={this.state.fish}
           />

@@ -15,8 +15,8 @@ class Content extends Component {
           hemispheres={this.props.hemispheres}
         />
         <OptimalFishing
-          optimalLocation={"River"}
-          optimalAveragePrice={"5000"}
+          optimalFishingLocation={this.props.optimalFishingLocation}
+          optimalAveragePrice={this.props.optimalFishingPrice}
         />
         <BugTable bugs={this.props.bugs} />
         <FishTable fish={this.props.fish} />

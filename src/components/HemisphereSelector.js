@@ -7,8 +7,6 @@ class HemisphereSelector extends Component {
   }
 
   render() {
-    console.log(this.props.selectedHemisphere);
-    console.log(this.props.hemispheres);
     const btns = this.props.hemispheres.map((hemisphere) => {
       return (
         <ListGroup.Item

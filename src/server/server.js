@@ -169,7 +169,7 @@ app.post("/critters/fish/create", (req, res) => {
     price: "900",
     location: "River",
     shadowSize: "Small",
-    isFin: false,
+    hasFin: false,
     schedule: {
       startingTime: null,
       endingTime: null,

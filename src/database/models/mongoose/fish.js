@@ -31,7 +31,7 @@ const FishSchema = mongoose.Schema({
       "Giant",
     ],
   },
-  isFin: {
+  hasFin: {
     type: Boolean,
     required: true,
   },

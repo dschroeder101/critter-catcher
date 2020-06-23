@@ -5,7 +5,7 @@ class OptimalFishing extends Component {
     return (
       <div>
         <p>
-          Optimal fishing spot is {this.props.optimalLocation}, with an average
+          Optimal fishing spot is {this.props.optimalFishingLocation}, with an average
           fish price of {this.props.optimalAveragePrice}.
         </p>
       </div>
