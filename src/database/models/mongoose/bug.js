@@ -19,6 +19,7 @@ let bugSchema = new mongoose.Schema({
     required: true,
   },
   schedule: ScheduleSchema,
+  schedules: [ScheduleSchema],
   hemispheres: [HemisphereSchema],
 });
 
