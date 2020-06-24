@@ -8,7 +8,7 @@ class BugTable extends Component {
       return <BugRow bug={bug} />;
     });
     return (
-      <div>
+      <div className="dataTable">
           <h2>Available Bugs</h2>
         <Table striped bordered variant="dark">
           <thead className="critterTableHead">

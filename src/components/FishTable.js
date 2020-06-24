@@ -8,7 +8,7 @@ class FishTable extends Component {
       return <FishRow fish={fish} />;
     });
     return (
-      <div>
+      <div className="dataTable">
         <h2>Available Fish</h2>
         <Table striped bordered variant="dark">
           <thead className="critterTableHead">

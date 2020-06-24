@@ -47,6 +47,15 @@
   min-height: 10vh;
 }
 
+.tables {
+  display: flex;
+}
+
+.dataTable {
+  width: 50%;
+  padding: 10px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

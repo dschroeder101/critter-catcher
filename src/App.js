@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
+import HemisphereSelector from "./components/HemisphereSelector";
+import OptimalFishing from "./components/OptimalFishing";
 import Content from "./components/Content";
 import Footer from "./components/Footer";
 import "./App.css";
@@ -52,36 +54,6 @@ class App extends Component {
     const body = await response.json();
     return body;
   };
-
-  // getAllFish = async () => {
-  //   const response = await fetch(`/critters/fish`);
-  //   const body = await response.json();
-
-  //   console.log(body);
-  // };
-
-  // getAllBugs = async () => {
-  //   const response = await fetch(`/critters/bugs`);
-  //   const body = await response.json();
-
-  //   console.log(body);
-
-  //   return this.filterBugs(body);
-  // };
-
-  // filterBugs = (bugs) => {
-  //   const result = bugs.filter((this.isValid));
-  //   return result;
-  // };
-
-  // isValid = (critter) {
-  //   // if(
-  //   //   // critter is valid for the current hemisphere && has a schedule with startingTime <= currentHour &&  endingTime >= currentHour
-  //   //   critter.hemispheres
-  //   //   // OR critter is valid for current hemisphere && has a schedule with a startingTime > endingTime && startingTime <= currentHour || endingTime >= currentHour
-  //   //   // OR critter  is valid for current hemisphere && has a schedule with allDay == true
-  //   // )
-  // }
 
   updateCritters = () => {
     this.getCurrentFish()
@@ -143,8 +115,6 @@ class App extends Component {
 
   componentDidMount() {
     this.updateCritters();
-    // this.getAllFish();
-    // this.getAllBugs();
   }
 
   render() {
@@ -154,15 +124,16 @@ class App extends Component {
       <div className="App">
         <Header />
         <div className="App-content">
-          <Content
-            hemispheres={hemispheres}
-            selectedHemisphere={this.state.selectedHemisphere}
+          <HemisphereSelector
             changeHemisphere={this.changeHemisphere}
-            optimalFishingLocation={this.state.optimalFishingLocation}
-            optimalFishingPrice={this.state.optimalFishingPrice}
-            bugs={this.state.bugs}
-            fish={this.state.fish}
+            selectedHemisphere={this.state.selectedHemisphere}
+            hemispheres={hemispheres}
           />
+          <OptimalFishing
+            optimalFishingLocation={this.state.optimalFishingLocation}
+            optimalAveragePrice={this.state.optimalFishingPrice}
+          />
+          <Content bugs={this.state.bugs} fish={this.state.fish} />
         </div>
         <Footer />
       </div>
