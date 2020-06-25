@@ -89,24 +89,70 @@ app.get("/critters/fish/:hemisphere/:month/:hour/", (req, res) => {
   let query = Fish.find({
     $or: [
       {
+        // Hemispheres[hemisphere] contains month
+        //AND there is at least one schedule that has a starting time <= current hour and ending time >= current hour
         $and: [
           {
             hemispheres: {
               $elemMatch: { direction: hemisphere, months: month },
             },
           },
-          { "schedule.startingTime": { $lte: hour } },
-          { "schedule.endingTime": { $gte: hour } },
+          {
+            schedules: {
+              $elemMatch: {
+                startingTime: { $lte: hour },
+                endingTime: { $gte: hour },
+              },
+            },
+          },
         ],
       },
       {
+        // Hemispheres[hemisphere] contains month
+        // AND there is a schedule that has startTime > endTime
+        // AND that schedule startingTime <= hour OR that schedule endingTime >= hour
         $and: [
           {
             hemispheres: {
               $elemMatch: { direction: hemisphere, months: month },
             },
           },
-          { "schedule.allDay": true },
+          {
+            $expr: {
+              $gt: ["$schedules.startingTime", "$schedules.endingTime"],
+            },
+          },
+
+          {
+            $or: [
+              {
+                schedules: {
+                  $elemMatch: { startingTime: { $lte: hour } },
+                },
+              },
+              {
+                schedules: {
+                  $elemMatch: { endingTime: { $gte: hour } },
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        // Current Hemisphere contains month
+        // AND there is a schedule that has allDay = true
+        $and: [
+          {
+            hemispheres: {
+              $elemMatch: { direction: hemisphere, months: month },
+            },
+          },
+          {
+            schedules: {
+              $elemMatch: { allDay: true },
+            },
+          },
         ],
       },
     ],
@@ -215,43 +261,23 @@ app.post("/critters/fish/create", (req, res) => {
     name: "Bitterling",
     price: "900",
     location: "River",
-    shadowSize: "Small",
+    shadowSize: "Extra Small",
     hasFin: false,
-    schedule: {
-      startingTime: null,
-      endingTime: null,
-      allDay: true,
-    },
     hemispheres: [
       {
         direction: "North",
-        months: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
+        months: ["January", "February", "March", "November", "December"],
       },
       {
         direction: "South",
-        months: [
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
+        months: ["May", "June", "July", "August", "September"],
+      },
+    ],
+    schedules: [
+      {
+        startingTime: 0,
+        endingTime: 0,
+        allDay: true,
       },
     ],
   });

@@ -81,18 +81,24 @@ class App extends Component {
     let locationMap = new Map();
 
     this.state.fish.map((fish) => {
-      if (locationMap.has(fish.location)) {
-        let existingLocation = locationMap.get(fish.location);
-        existingLocation.totalValue += existingLocation.totalValue + fish.price;
-        existingLocation.numberOfFish++;
-        locationMap.set(fish.location, existingLocation);
-      } else {
-        locationMap.set(fish.location, {
-          totalValue: fish.price,
-          numberOfFish: 1,
-        });
-      }
+      fish.locations.map((location) => {
+        if (locationMap.has(location)) {
+          let existingLocation = locationMap.get(location);
+
+          existingLocation.totalValue =
+            existingLocation.totalValue + fish.price;
+          existingLocation.numberOfFish++;
+          locationMap.set(location, existingLocation);
+        } else {
+          locationMap.set(location, {
+            totalValue: fish.price,
+            numberOfFish: 1,
+          });
+        }
+      });
     });
+
+    console.log(locationMap);
 
     let maxAveragePrice = 0;
     let maxLocation = "";
@@ -109,7 +115,7 @@ class App extends Component {
 
     this.setState({
       optimalFishingLocation: maxLocation,
-      optimalFishingPrice: maxAveragePrice,
+      optimalFishingPrice: Math.round(maxAveragePrice * 100) / 100,
     });
   }
 

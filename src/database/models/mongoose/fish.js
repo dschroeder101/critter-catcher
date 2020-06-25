@@ -35,10 +35,10 @@ const FishSchema = mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  schedule: ScheduleSchema,
   hemispheres: [
     HemisphereSchema
   ],
+  schedules: [ScheduleSchema]
 });
 
 FishSchema.loadClass(FishClass);
