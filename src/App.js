@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
 import HemisphereSelector from "./components/HemisphereSelector";
-import OptimalFishing from "./components/OptimalFishing";
+import FishingLocations from "./components/FishingLocationTable";
 import Content from "./components/Content";
 import Footer from "./components/Footer";
 import "./App.css";
@@ -17,6 +17,7 @@ class App extends Component {
       currentTime: new Date(),
       optimalFishingLocation: "",
       optimalFishingPrice: 0,
+      fishingLocations: new Map(),
     };
 
     this.changeHemisphere = (newHemisphere) => {
@@ -67,7 +68,7 @@ class App extends Component {
 
   handleFishUpdate(fish) {
     this.setState({ fish: fish }, () => {
-      this.calculateBestFishingLocation();
+      this.calculateFishingLocations();
     });
   }
 
@@ -77,18 +78,14 @@ class App extends Component {
     });
   }
 
-  calculateBestFishingLocation() {
+  calculateFishingLocations() {
     let locationMap = new Map();
 
     this.state.fish.map((fish) => {
       fish.locations.map((location) => {
         if (locationMap.has(location)) {
-          let existingLocation = locationMap.get(location);
-
-          existingLocation.totalValue =
-            existingLocation.totalValue + fish.price;
-          existingLocation.numberOfFish++;
-          locationMap.set(location, existingLocation);
+          locationMap.get(location).totalValue += fish.price;
+          locationMap.get(location).numberOfFish++;
         } else {
           locationMap.set(location, {
             totalValue: fish.price,
@@ -98,24 +95,8 @@ class App extends Component {
       });
     });
 
-    console.log(locationMap);
-
-    let maxAveragePrice = 0;
-    let maxLocation = "";
-
-    for (let [key, value] of locationMap.entries()) {
-      if (value.totalValue / value.numberOfFish > maxAveragePrice) {
-        maxAveragePrice = value.totalValue / value.numberOfFish;
-        maxLocation = key;
-      }
-    }
-
-    console.log(maxAveragePrice);
-    console.log(maxLocation);
-
     this.setState({
-      optimalFishingLocation: maxLocation,
-      optimalFishingPrice: Math.round(maxAveragePrice * 100) / 100,
+      fishingLocations: locationMap,
     });
   }
 
@@ -125,7 +106,6 @@ class App extends Component {
 
   render() {
     const hemispheres = ["North", "South"];
-
     return (
       <div className="App">
         <Header />
@@ -135,10 +115,7 @@ class App extends Component {
             selectedHemisphere={this.state.selectedHemisphere}
             hemispheres={hemispheres}
           />
-          <OptimalFishing
-            optimalFishingLocation={this.state.optimalFishingLocation}
-            optimalAveragePrice={this.state.optimalFishingPrice}
-          />
+          <FishingLocations locations={this.state.fishingLocations} />
           <Content bugs={this.state.bugs} fish={this.state.fish} />
         </div>
         <Footer />

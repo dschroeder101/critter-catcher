@@ -9,20 +9,16 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  min-height: 30vh;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 70%;
+  margin: auto;
 }
 
 .App-link {
@@ -45,22 +41,51 @@
 
 .App-Footer {
   min-height: 10vh;
+  width: 100%;
 }
 
 .tables {
-  display: flex;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .dataTable {
-  width: 50%;
+  display: inline-block;
   padding: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.Fishing-location-table {
+  width: 50vw;
+  margin: auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.Hemisphere-selector {
+  max-width: 50vw;
+  margin: auto;
+  padding: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .Hemisphere-selector {
+    max-width: 100vw;
   }
-  to {
-    transform: rotate(360deg);
+
+  .Fishing-location-table {
+    width: 100vw;
+    padding: 10px;
+  }
+
+  .tables {
+    width: 100vw;
+  }
+
+  .dataTable {
+    width: 100vw;
+  }
+  .App-header {
+    width: 100%
   }
 }

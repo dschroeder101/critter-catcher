@@ -48,13 +48,6 @@ process.on("SIGINT", function () {
   });
 });
 
-app.get("/critters/", (req, res) => {
-  res.json({
-    hemisphere: req.params.hemisphere,
-    currentTime: req.params.currentTime,
-  });
-});
-
 app.get("/critters/fish", (req, res) => {
   var query = Fish.find({});
 
@@ -82,6 +75,7 @@ app.get("/critters/bugs", (req, res) => {
 });
 
 app.get("/critters/fish/:hemisphere/:month/:hour/", (req, res) => {
+  console.log("Retrieving currently available fish...");
   const hemisphere = req.params.hemisphere;
   const month = req.params.month;
   const hour = req.params.hour;
@@ -169,6 +163,8 @@ app.get("/critters/fish/:hemisphere/:month/:hour/", (req, res) => {
 });
 
 app.get("/critters/bugs/:hemisphere/:month/:hour/", (req, res) => {
+  console.log("Retrieving currently available bugs...");
+
   const hemisphere = req.params.hemisphere;
   const month = req.params.month;
   const hour = req.params.hour;

@@ -9,7 +9,7 @@ class BugTable extends Component {
     });
     return (
       <div className="dataTable">
-          <h2>Available Bugs</h2>
+          <h4>Available Bugs</h4>
         <Table striped bordered variant="dark">
           <thead className="critterTableHead">
             <tr>

@@ -20,7 +20,11 @@ class HemisphereSelector extends Component {
         </ListGroup.Item>
       );
     });
-    return <ListGroup horizontal>{btns}</ListGroup>;
+    return (
+      <div className="Hemisphere-selector">
+        <ListGroup horizontal>{btns}</ListGroup>
+      </div>
+    );
   }
 }
 

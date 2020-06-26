@@ -9,20 +9,22 @@ class FishTable extends Component {
     });
     return (
       <div className="dataTable">
-        <h2>Available Fish</h2>
-        <Table striped bordered variant="dark">
-          <thead className="critterTableHead">
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Location</th>
-              <th>Shadow Size</th>
-              <th>Finned</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>{Fish}</tbody>
-        </Table>
+        <h4>Available Fish</h4>
+        <div className="table-responsive">
+          <Table striped bordered variant="dark">
+            <thead className="critterTableHead">
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Location</th>
+                <th>Shadow Size</th>
+                <th>Finned</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>{Fish}</tbody>
+          </Table>
+        </div>
       </div>
     );
   }
