@@ -43,4 +43,4 @@ const FishSchema = mongoose.Schema({
 
 FishSchema.loadClass(FishClass);
 let Fish = mongoose.model("Fish", FishSchema);
-module.exports = Fish;
+export default Fish;

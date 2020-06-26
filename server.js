@@ -1,9 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const Bug = require("./client/src/database/models/mongoose/bug");
-const Fish = require("./client/src/database/models/mongoose/fish");
-const cors = require("cors");
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import Bug from "./client/src/database/models/mongoose/bug";
+import Fish from "./client/src/database/models/mongoose/fish";
+import cors from "cors";
 
 require("dotenv").config();
 

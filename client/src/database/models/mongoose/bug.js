@@ -24,4 +24,4 @@ let bugSchema = new mongoose.Schema({
 
 bugSchema.loadClass(BugClass);
 let Bug = mongoose.model("Bug", bugSchema);
-module.exports = Bug;
+export default Bug;
