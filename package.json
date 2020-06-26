@@ -19,23 +19,17 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "mongodb": "^3.5.8",
-    "mongoose": "^5.9.18",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.0.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "react-time": "^4.3.0"
+    "mongoose": "^5.9.18"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
     "dev:start": "nodemon ./server-build/index.js",
-    "client": "yarn start",
-    "server": "cd ./src/server && nodemon -r esm server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "client": "cd client && yarn start",
+    "server": "nodemon -r esm server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -62,6 +56,5 @@
     "prettier": "^2.0.5",
     "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^1.7.2"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
