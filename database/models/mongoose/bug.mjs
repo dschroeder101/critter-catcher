@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-import BugClass from "../../../domain/bug";
-import HemisphereSchema from "./hemisphere"
-import ScheduleSchema from "./schedule";
+import BugClass from "../../../domain/bug.mjs";
+import HemisphereSchema from "./hemisphere.mjs"
+import ScheduleSchema from "./schedule.mjs";
 
 let bugSchema = new mongoose.Schema({
   name: {

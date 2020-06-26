@@ -1,4 +1,4 @@
-import Critter from "./critter";
+import Critter from "./critter.mjs";
 
 class Bug extends Critter {
   constructor() {

@@ -1,4 +1,4 @@
-import Critter from "./critter";
+import Critter from "./critter.mjs";
 
 class Fish extends Critter {
   constructor(shadowSize, hasFin) {

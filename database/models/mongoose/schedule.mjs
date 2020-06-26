@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import ScheduleClass from "../../../domain/schedule";
+import ScheduleClass from "../../../domain/schedule.mjs";
 
 const ScheduleSchema = mongoose.Schema(
     {

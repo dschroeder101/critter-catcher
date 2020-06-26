@@ -1,4 +1,4 @@
-import Entity from "./entity";
+import Entity from "./entity.mjs";
 
 const NORTHERN_HEMISPHERE = "North";
 const SOUTHERN_HEMISPHERE = "South";

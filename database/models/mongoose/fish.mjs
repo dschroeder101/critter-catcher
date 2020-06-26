@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-import FishClass from "../../../domain/fish";
-import HemisphereSchema from "./hemisphere"
-import ScheduleSchema from "./schedule";
+import FishClass from "../../../domain/fish.mjs";
+import HemisphereSchema from "./hemisphere.mjs"
+import ScheduleSchema from "./schedule.mjs";
 
 const FishSchema = mongoose.Schema({
   name: {

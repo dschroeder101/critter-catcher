@@ -1,11 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import Bug from "./client/src/database/models/mongoose/bug";
-import Fish from "./client/src/database/models/mongoose/fish";
+import Bug from "./database/models/mongoose/bug.mjs";
+import Fish from "./database/models/mongoose/fish.mjs";
 import cors from "cors";
 
-require("dotenv").config();
+//require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;

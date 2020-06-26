@@ -1,4 +1,4 @@
-import Entity from "./entity";
+import Entity from "./entity.mjs";
 
 class Hemisphere extends Entity {
   constructor(direction, months) {

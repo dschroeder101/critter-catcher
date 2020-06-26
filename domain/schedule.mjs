@@ -1,4 +1,4 @@
-import Entity from "./entity";
+import Entity from "./entity.mjs";
 
 class Schedule extends Entity {
   constructor(startingTime, endingTime, allDay) {

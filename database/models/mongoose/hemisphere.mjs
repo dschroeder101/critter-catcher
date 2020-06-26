@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import HemisphereClass from "../../../domain/hemisphere";
+import HemisphereClass from "../../../domain/hemisphere.mjs";
 
 const HemisphereSchema = mongoose.Schema({
   direction: {
