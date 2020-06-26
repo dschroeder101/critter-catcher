@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
 import HemisphereSelector from "./components/HemisphereSelector";
+import CritterSelector from "./components/CritterSelector";
 import FishingLocations from "./components/FishingLocationTable";
 import Content from "./components/Content";
 import Footer from "./components/Footer";
@@ -14,9 +15,9 @@ class App extends Component {
       fish: [],
       bugs: [],
       selectedHemisphere: "North",
+      selectedCritter: "Fish",
       currentTime: new Date(),
-      optimalFishingLocation: "",
-      optimalFishingPrice: 0,
+      lastRetrieval: 0,
       fishingLocations: new Map(),
     };
 
@@ -29,6 +30,14 @@ class App extends Component {
           this.updateCritters();
         }
       );
+    };
+
+    this.changeCritter = (newCritter) => {
+      {
+        this.setState({
+          selectedCritter: newCritter,
+        });
+      }
     };
   }
 
@@ -106,6 +115,7 @@ class App extends Component {
 
   render() {
     const hemispheres = ["North", "South"];
+    const critters = ["Fish", "Bugs"];
     return (
       <div className="App">
         <Header />
@@ -115,8 +125,17 @@ class App extends Component {
             selectedHemisphere={this.state.selectedHemisphere}
             hemispheres={hemispheres}
           />
+          <CritterSelector
+            changeCritter={this.changeCritter}
+            selectedCritter={this.state.selectedCritter}
+            critters={critters}
+          />
           <FishingLocations locations={this.state.fishingLocations} />
-          <Content bugs={this.state.bugs} fish={this.state.fish} />
+          <Content
+            selectedCritter={this.state.selectedCritter}
+            bugs={this.state.bugs}
+            fish={this.state.fish}
+          />
         </div>
         <Footer />
       </div>

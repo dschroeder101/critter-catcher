@@ -5,7 +5,11 @@ class Content extends Component {
   render() {
     return (
       <div className="Content">
-        <DataTables bugs={this.props.bugs} fish={this.props.fish} />
+        <DataTables
+          selectedCritter={this.props.selectedCritter}
+          bugs={this.props.bugs}
+          fish={this.props.fish}
+        />
       </div>
     );
   }

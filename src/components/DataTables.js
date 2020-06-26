@@ -6,8 +6,11 @@ class DataTables extends Component {
   render() {
     return (
       <div className="tables">
-        <BugTable bugs={this.props.bugs} />
-        <FishTable fish={this.props.fish} />
+        {this.props.selectedCritter === "Fish" ? (
+          <FishTable fish={this.props.fish} />
+        ) : (
+          <BugTable bugs={this.props.bugs} />
+        )}
       </div>
     );
   }
