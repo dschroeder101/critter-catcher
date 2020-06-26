@@ -17,7 +17,7 @@ class App extends Component {
       selectedHemisphere: "North",
       selectedCritter: "Fish",
       currentTime: new Date(),
-      lastRetrieval: 0,
+      lastRetrieval: new Date(),
       fishingLocations: new Map(),
     };
 
@@ -50,6 +50,7 @@ class App extends Component {
       `/critters/fish/${this.state.selectedHemisphere}/${month}/${hour}`
     );
     const body = await response.json();
+    console.log(body);
     return body;
   };
 

@@ -4,6 +4,7 @@ import { Table } from "react-bootstrap";
 
 class FishTable extends Component {
   render() {
+    console.log(this.props.fish);
     const Fish = this.props.fish.map((fish) => {
       return <FishRow fish={fish} />;
     });
