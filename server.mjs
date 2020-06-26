@@ -4,11 +4,13 @@ import mongoose from "mongoose";
 import Bug from "./database/models/mongoose/bug.mjs";
 import Fish from "./database/models/mongoose/fish.mjs";
 import cors from "cors";
+import path from "path";
 
 //require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+const __dirname = path.resolve();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -372,7 +374,7 @@ app.post("/critters/bugs/create", (req, res) => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 
-  app.get("*", function (req, res) {
+  app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
